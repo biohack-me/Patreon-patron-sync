@@ -203,7 +203,7 @@ def award_patreon_badges(reward_levels, patrons, db_conn)
 end
 
 # remove all old gold patron badges
-# for qualifying accounts, remove basic patron badge and award gold badge
+# award new ones to qualifying accounts
 def award_gold_patreon_badges(reward_levels, patrons, db_conn)
   badge_gold_patreon = get_badge('Patreon Gold Badge', db_conn)
   badge_gold_patreon or return false
