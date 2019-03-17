@@ -129,12 +129,20 @@ end
 # create a new post on the virtual wall discussion with all qualifying patron
 # names
 def create_virtual_wall_post(reward_levels, patrons, db_conn)
+  puts "Creating virtual wall post..."
+
   award_patrons = patrons.select{|p| reward_levels.include?(p[:reward_id])}.sort_by{|p| p[:amount]}.reverse
   users = patron_forum_users(award_patrons, db_conn)
-  users.size > 0 or return false
+  unless users.size > 0
+    puts "\tNo eligible user forum accounts found!"
+    return false
+  end
 
   virtual_wall_post = get_vanilla_discussion('Patreon Virtual Wall', db_conn)
-  virtual_wall_post or return false
+  unless virtual_wall_post
+    puts "\tVirtual wall discussion not found!"
+    return false
+  end
 
   # build comment content
   post_content = "Thank you to this month's Patreon supporters!<br /><br /><ul>"
@@ -161,6 +169,8 @@ def create_virtual_wall_post(reward_levels, patrons, db_conn)
   # update user metadata
   query = db_conn.prepare("update GDN_User set CountComments = CountComments + 1 where UserID = ?")
   results = query.execute(virtual_wall_post['InsertUserID'])
+
+  puts "\tPost (thanking #{users.size} found users) created!"
 end
 
 # remove a badge from all users, updating metadata
@@ -187,8 +197,13 @@ end
 # remove all old patron badges
 # award new ones to qualifying accounts
 def award_patreon_badges(reward_levels, patrons, db_conn)
+  puts "Awarding patreon badges..."
+
   badge_patreon = get_badge('Patreon Badge', db_conn)
-  badge_patreon or return false
+  unless badge_patreon
+    puts "\tBadge not found"
+    return false
+  end
 
   # remove all old badges
   remove_badge(badge_patreon, db_conn)
@@ -196,17 +211,28 @@ def award_patreon_badges(reward_levels, patrons, db_conn)
   # award new badges
   award_patrons = patrons.select{|p| reward_levels.include?(p[:reward_id])}
   users = patron_forum_users(award_patrons, db_conn)
-  users.size > 0 or return false
+  unless users.size > 0
+    puts "\tNo eligible user forum accounts found!"
+    return false
+  end
+
   users.each do |user|
     award_badge(user, badge_patreon, db_conn)
   end
+
+  puts "\tBadge awarded to #{users.size} found users!"
 end
 
 # remove all old gold patron badges
 # award new ones to qualifying accounts
 def award_gold_patreon_badges(reward_levels, patrons, db_conn)
+  puts "Awarding gold patreon badges..."
+
   badge_gold_patreon = get_badge('Patreon Gold Badge', db_conn)
-  badge_gold_patreon or return false
+  unless badge_gold_patreon
+    puts "\tGold badge not found!"
+    return false
+  end
 
   # remove all old badges
   remove_badge(badge_gold_patreon, db_conn)
@@ -214,10 +240,16 @@ def award_gold_patreon_badges(reward_levels, patrons, db_conn)
   # award new badges
   award_patrons = patrons.select{|p| reward_levels.include?(p[:reward_id])}
   users = patron_forum_users(award_patrons, db_conn)
-  users.size > 0 or return false
+  unless users.size > 0
+    puts "\tNo eligible user forum accounts found!"
+    return false
+  end
+
   users.each do |user|
     award_badge(user, badge_gold_patreon, db_conn)
   end
+
+  puts "\tBadge awarded to #{users.size} found users!"
 end
 
 #####################################################################
