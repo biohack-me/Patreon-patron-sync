@@ -9,12 +9,12 @@
 # token and secret for the application- see
 # https://www.patreon.com/portal/start/quick-start
 def connect_to_patreon
-  if !File.exist?('credentials.rb')
+  if !File.exist?("#{File.dirname(__FILE__)}/credentials.rb")
     puts "You need to populate the credentials.rb file."
     puts "See credentials.rb.example for more details."
     exit 1
   end
-  require_relative 'credentials.rb'
+  require "#{File.dirname(__FILE__)}/credentials.rb"
 
   if PATREON_ACCESS_TOKEN.empty?
     puts "PATREON_ACCESS_TOKEN not set in credentials.rb."
@@ -26,12 +26,12 @@ def connect_to_patreon
 end
 
 def connect_to_vanilla
-  if !File.exist?('credentials.rb')
+  if !File.exist?("#{File.dirname(__FILE__)}/credentials.rb")
     puts "You need to populate the credentials.rb file."
     puts "See credentials.rb.example for more details."
     exit 1
   end
-  require_relative 'credentials.rb'
+  require "#{File.dirname(__FILE__)}/credentials.rb"
 
   if  DB_HOST.empty? || DB_USER.empty? || DB_PASS.empty? || DB_DB.empty?
     puts "Database credentials not provided in credentials.rb."
