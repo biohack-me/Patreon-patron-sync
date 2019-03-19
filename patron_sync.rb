@@ -118,7 +118,7 @@ end
 def patron_forum_users(patrons, db_conn)
   users = []
   patrons.each do |p|
-    query = db_conn.prepare("select UserID, Name, Email, CountBadges from GDN_User where Name = ? or Email = ? order by UserID DESC")
+    query = db_conn.prepare("select UserID, Name, Email, Points, CountBadges from GDN_User where Name = ? or Email = ? order by UserID DESC")
     results = query.execute(p[:full_name], p[:email])
     (results.size == 0) and next
     users << results.first
