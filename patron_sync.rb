@@ -181,8 +181,10 @@ def remove_badge(badge, db_conn)
   results.each do |award|
     remove_badge_award = db_conn.prepare("delete from GDN_BadgeAward where BadgeID = ? and UserID = ?")
     remove_badge_award.execute(award['BadgeID'], award['UserID'])
-    update_badge_count = db_conn.prepare("update GDN_User set CountBadges = CountBadges-1, Points = Points-? where UserID = ?")
-    update_badge_count.execute(award['AwardValue'], award['UserID'])
+    update_user = db_conn.prepare("update GDN_User set CountBadges = CountBadges-1, Points = Points-? where UserID = ?")
+    update_user.execute(badge['AwardValue'], award['UserID'])
+    update_points = db_conn.prepare("update GDN_UserPoints set Points = Points-? where UserID = ?")
+    update_points.execute(badge['AwardValue'], award['UserID'])
   end
 end
 
@@ -190,8 +192,10 @@ end
 def award_badge(user, badge, db_conn)
   add_badge_award = db_conn.prepare("insert into GDN_BadgeAward (BadgeID, UserID, InsertUserID, DateInserted) values (?, ?, ?, ?)")
   add_badge_award.execute(badge['BadgeID'], user['UserID'], user['UserID'], Time.now.getutc)
-  update_badge_count = db_conn.prepare("update GDN_User set CountBadges = CountBadges+1, Points = Points+? where UserID = ?")
-  update_badge_count.execute(badge['AwardValue'], user['UserID'])
+  update_user = db_conn.prepare("update GDN_User set CountBadges = CountBadges+1, Points = Points+? where UserID = ?")
+  update_user.execute(badge['AwardValue'], user['UserID'])
+  update_points = db_conn.prepare("update GDN_UserPoints set Points = Points+? where UserID = ?" )
+  update_points.execute(badge['AwardValue'], user['UserID'])
 end
 
 # remove all old patron badges
