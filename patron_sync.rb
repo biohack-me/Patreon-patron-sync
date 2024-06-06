@@ -162,8 +162,8 @@ def create_virtual_wall_post(reward_levels, patrons, db_conn)
     query = db_conn.prepare("update GDN_Discussion set FirstCommentID = ?, LastCommentID = ?, CountComments = ?, DateLastComment = ? where DiscussionID = ?")
     results = query.execute(comment_id, comment_id, virtual_wall_post['CountComments']+1, Time.now.getutc, virtual_wall_post['DiscussionID'])
   else
-    query = db_conn.prepare("update GDN_Discussion set LastCommentID = ?, CountComments = ?, DateLastComment = ? where DiscussionID = ?")
-    results = query.execute(comment_id, virtual_wall_post['CountComments']+1, Time.now.getutc, virtual_wall_post['DiscussionID'])
+    query = db_conn.prepare("update GDN_Discussion set LastCommentID = ?, CountComments = ?, DateLastComment = ?, LastCommentUserID = ? where DiscussionID = ?")
+    results = query.execute(comment_id, virtual_wall_post['CountComments']+1, Time.now.getutc, virtual_wall_post['InsertUserID'], virtual_wall_post['DiscussionID'])
   end
 
   # update user metadata
