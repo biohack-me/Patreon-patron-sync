@@ -131,6 +131,12 @@ def create_virtual_wall_post(reward_levels, patrons, db_conn)
     puts "\tNo eligible user forum accounts found!"
     return false
   end
+  no_account_users = []
+  if users.size < award_patrons.size
+    found_user_names = users.collect{|u| u['Name']}
+    found_user_emails = users.collect{|u| u['Email']}
+    no_account_users = award_patrons.reject{|p| found_user_names.include?(p[:full_name]) || found_user_emails.include?(p[:email])}
+  end
 
   virtual_wall_post = get_vanilla_discussion('Patreon Virtual Wall', db_conn)
   unless virtual_wall_post
@@ -143,7 +149,13 @@ def create_virtual_wall_post(reward_levels, patrons, db_conn)
   users.each do |u|
     post_content << "<li>@#{u['Name']}</li>"
   end
+  no_account_users.each do |na|
+    post_content << "<li>#{na[:full_name]}</li>"
+  end
   post_content << "</ul>"
+  if no_account_users.size > 0
+    post_content << "<br />Forum accounts for patrons were linked where a matching username or email address was found."
+  end
 
   # create comment
   query = db_conn.prepare("insert into GDN_Comment (DiscussionID, InsertUserID, Body, Format, DateInserted) values (?, ?, ?, ?, ?)")
