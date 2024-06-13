@@ -1,3 +1,0 @@
-= biohack.me patreon sync
-
-Connects to the {Patreon API}[https://github.com/Patreon/patreon-ruby] to get current patrons to grant forum rewards by directly manipulating the {Vanilla}[https://github.com/biohack-me/vanilla] (and {YAGA application}[https://github.com/biohack-me/Application-Yaga]) database.
