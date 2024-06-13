@@ -21,9 +21,9 @@ You will need a local copy of our vanilla database and our patreon API key.
 
 Copy the provided `credentials.rb.example` file to `credentials.rb` and set the database connection info and patreon access token.
 
-Then, open an `irb` console to test individual functions provided in `patron_functions.rb` (remember to `require_relative 'patron_functions'`), or, run `patron_sync.rb` to test the entire process and update your local vanilla database.
+Then, open an `irb` console to test individual functions provided in `patron_functions.rb` (remember to `require_relative 'patron_functions'`), or, run `./patron_sync.rb` to test the entire process and update your local vanilla database.
 
 
 ## Deploying
 
-After pushing any local changes to github, go to the project directory on the biohack.me server and do a git pull and bundle update. There is a cron job set up on the server to run `patron_sync.rb` on the first of every month.
+After pushing any local changes to github, go to the project directory on the biohack.me server and do a `git pull` and `bundle install`. There is a cron job set up on the server to run `patron_sync.rb` on the first of every month.
