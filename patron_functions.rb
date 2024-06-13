@@ -145,7 +145,7 @@ def create_virtual_wall_post(reward_levels, patrons, db_conn)
   end
 
   # build comment content
-  post_content = "Thank you to this month's Patreon supporters!<br /><br /><ul>"
+  post_content = "Thank you to this month's <a href='https://www.patreon.com/biohack/posts'>Patreon</a> supporters!<br /><br /><ul>"
   users.each do |u|
     post_content << "<li>@#{u['Name']}</li>"
   end
