@@ -11,6 +11,7 @@ GEM
 PLATFORMS
   x86_64-darwin-20
   x86_64-darwin-22
+  x86_64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
@@ -18,4 +19,4 @@ DEPENDENCIES
   patreon
 
 BUNDLED WITH
-   2.3.12
+   2.5.16
