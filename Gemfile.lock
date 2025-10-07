@@ -17,7 +17,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bigdecimal
   mysql2
   patreon
 
