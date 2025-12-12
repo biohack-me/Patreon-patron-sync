@@ -8,7 +8,7 @@ GEM
     patreon (0.5.0)
       json-api-vanilla (~> 1.0.1)
       rack
-    rack (3.2.3)
+    rack (3.2.4)
 
 PLATFORMS
   arm64-darwin-25
@@ -19,4 +19,4 @@ DEPENDENCIES
   patreon
 
 BUNDLED WITH
-   2.5.16
+   2.7.2
