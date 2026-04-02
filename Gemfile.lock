@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    bigdecimal (4.0.1)
+    bigdecimal (4.1.0)
     json-api-vanilla (1.0.4)
     mysql2 (0.5.7)
       bigdecimal
