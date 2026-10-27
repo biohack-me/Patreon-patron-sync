@@ -1,17 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    bigdecimal (4.1.0)
+    bigdecimal (4.1.3)
     json-api-vanilla (1.0.4)
     mysql2 (0.5.7)
       bigdecimal
     patreon (0.5.0)
       json-api-vanilla (~> 1.0.1)
       rack
-    rack (3.2.6)
+    rack (3.2.7)
 
 PLATFORMS
   arm64-darwin-25
+  arm64-darwin-27
   x86_64-linux
 
 DEPENDENCIES
@@ -19,4 +20,4 @@ DEPENDENCIES
   patreon
 
 BUNDLED WITH
-  4.0.6
+  4.0.23
