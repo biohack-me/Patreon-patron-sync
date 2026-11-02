@@ -1,5 +1,14 @@
 # biohack.me patreon sync
 
+> [!IMPORTANT]
+> This repository previously used the [patreon ruby gem](https://github.com/Patreon/patreon-ruby) which used the patreon v1 api. The v1 api was [disabled on October 7, 2026](https://docs.patreon.com/#migrating-from-api-v1-to-api-v2).
+>
+> Going forward, if we decide to keep adding patreon posts to the forum archive, the code from this repository will need to be rewritten to use the v2 api and make calls without using the patreon ruby gem.
+>
+> The only reason this repository existed separately from the [forum_archive repositiory](https://github.com/biohack-me/forum_archive) in the first place is because it predated creating the archive. If we decide to rewrite this code, the place for it should be within that application, so this repository has been archived.
+
+---
+
 Connects to the [Patreon API](https://github.com/Patreon/patreon-ruby) to get current patrons to grant forum rewards by directly manipulating the [Vanilla](https://github.com/biohack-me/vanilla) (and [YAGA application](https://github.com/biohack-me/Application-Yaga)) database.
 
 
